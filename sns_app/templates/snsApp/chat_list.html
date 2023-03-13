@@ -1,0 +1,55 @@
+{% include "./header.html" %}
+
+<body>
+  <div class="container mx-auto grid sm:grid-cols-11" style="max-width: none; padding: 0; height: 100%; overflow-x: hidden;">
+    <!-- Side Bar -->
+    <div class="rounded col-span-2">
+      {% block sidebar %}
+        {% include "snsApp/sidebar.html" %}
+        {% endblock %}
+    </div>
+    <div class="rounded col-span-9">
+        <!-- Chat List Area -->
+        <div class=" bg-white border border-gray-200 rounded-lg shadow sm:p-8"
+              style="max-width: 90%; height: 90%; margin-top: 3%;">
+          <!-- Chat List Title -->
+          <div class="flex items-center justify-between mb-4">
+              <h5 class="text-xl font-bold leading-none dark:text-black">
+                Chats Available
+              </h5>
+          </div>
+          <div class="flow-root">
+              <ul role="list" class="divide-y divide-gray-200 dark:divide-gray-700">
+                <!-- Iterate through User's Friend List  -->
+                {% for user in friend_list %}
+                  <li class="py-3 sm:py-4">
+                      <div class="flex items-center space-x-4">
+                        <div class="flex-1 min-w-0">
+                          <!-- Create a new card for each friend -->
+                            <p class="text-sm font-medium text-gray-900 truncate dark:text-white">
+                              {% if loggedUser == user.friend_a %}
+                              <h3 id="request_name">{{ user.friend_b }}</h3>
+                              {% else %}
+                              <h3 id="request_name">{{ user.friend_a }}</h3>
+                              {% endif %}
+                            </p>
+                        </div>
+                        <!-- When User press Start Chat, redirect to user chat -->
+                        <div class="inline-flex items-center text-base font-semibold text-gray-900 dark:text-white">
+                              <form id="request_form" action="/chat/{{ user.chat }}/" method="post" enctype="multipart/form-data">
+                                {% csrf_token %}
+                                <button type="submit" value="accept" name="action"
+                                        style="color:black;">
+                                  Start Chat
+                                </button>
+                              </form>
+                        </div>
+                    </div>
+                  </li>
+                {% endfor %}
+              </ul>
+            </div>
+          </div>
+    </div>
+  </div>
+</body>

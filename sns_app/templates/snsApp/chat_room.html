@@ -1,0 +1,119 @@
+{% extends "snsApp/home_base.html" %}
+{% block content %}
+  {% if user.is_authenticated %}
+  <!-- Chat Room Title -->
+  <h4 class="text-2xl font-bold leading-tight text-black-800 dark:text-black-100"
+    style="margin-top: 3%; text-align: center;">
+    Chatroom
+  </h4>
+  <!-- Area to display all messages -->
+  <div id="message_area">
+
+  </div>
+  <!-- Chat input box to type messages -->
+  <input id="chat_input" type="text" size="100">
+  <!-- Chat Send button to send messages -->
+  <input class="button hollow" id="chat_send" type="button" value="Send">
+  {{ room_name|json_script:"room-name" }}
+  {{ username|json_script:"username" }}
+  {{ messages|json_script:"messages" }}
+    <script>
+      // Declare all necessary variables
+        var CSRF_TOKEN = '{{ csrf_token }}';
+        var username = '{{ username }}';
+        var messages= JSON.parse('{{ messages|safe }}')
+      // Get Room name and WebSocket Link
+        const roomName = JSON.parse(document.getElementById('room-name').textContent);
+        const chatSocket = new WebSocket('ws://'+ window.location.host+ '/ws/'+roomName+ '/');
+      // Function to Display Past Messages when Chat Room is opened
+        chatSocket.onopen= function(e) {
+          console.log(e)
+          let messageDiv = document.getElementById("message_area")
+          for(var i = 0; i < messages.length; i++){
+            var newMessage =  messages[i]['message']
+            var bubbleRow = document.createElement('div')
+            var textBubble = document.createElement('div') 
+            var senderName = document.createElement('p')
+            
+
+            if(username == messages[i]['sender']){        
+              textBubble.className = "userSent"
+              bubbleRow.className = "userBubbleRow"
+            }else{
+              textBubble.className = "friendSent"
+              bubbleRow.className = "friendBubbleRow"
+            }
+            textBubble.innerHTML += newMessage
+            bubbleRow.appendChild(textBubble)
+            messageDiv.appendChild(bubbleRow)
+          }
+        };
+        // Function to display new messages
+        chatSocket.onmessage = function(e) {
+            const data = JSON.parse(e.data);
+            let messageDiv = document.getElementById("message_area")
+            var newMessage =  data['message']
+            var bubbleRow = document.createElement('div')
+            var textBubble = document.createElement('div') 
+            var senderName = document.createElement('p')
+            console.log(data)
+            console.log(data['username'])
+            if(data['sender'] == data['username']){        
+              textBubble.className = "userSent"
+              bubbleRow.className = "userBubbleRow"
+            }else{
+              textBubble.className = "friendSent"
+              bubbleRow.className = "friendBubbleRow"
+            }
+            newMessage = newMessage.replace(/'/g, "")
+            newMessage = newMessage.replace(/"/g, "")
+
+            textBubble.innerHTML += newMessage
+            bubbleRow.appendChild(textBubble)
+            messageDiv.appendChild(bubbleRow)
+        };
+        // Function to check if websocket is closed
+        chatSocket.onclose = function(e) {
+            console.error('Chat socket closed unexpectedly');
+        };
+
+        // When User press "Enter", call Send Button Function
+        document.querySelector('#chat_input').focus();
+        document.querySelector('#chat_input').onkeyup = function(e) {
+            if (e.keyCode === 13) { 
+                document.querySelector('#chat_send').click();
+            }
+        };
+        // When User click send, save the new message in Django Database.
+        document.querySelector('#chat_send').onclick = function(e) {
+            const messageInputDom = document.querySelector('#chat_input');
+            const message = messageInputDom.value;
+            chatSocket.send(JSON.stringify({
+                'message': message,
+            }));
+
+            fetch("/save_message/", {
+              method:"POST",
+              headers: {
+                    'Content-Type':'application/json',
+                    'X-CSRFToken':CSRF_TOKEN,
+                },
+              body: JSON.stringify({
+                'message':message,
+                'chat':roomName,
+                'sender':username
+              })
+            }).then(res => {
+              console.log("Request complete!");
+            });
+            
+            messageInputDom.value = '';
+        };
+      </script>
+  {% else %}
+    <h5>Welcome to SNS</h5>
+  {% endif%}
+{% endblock %}
+{% block sidebar%}
+  {% include "snsApp/sidebar.html" %}
+{% endblock %}

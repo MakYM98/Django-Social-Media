@@ -1,0 +1,65 @@
+{% include "./header.html" %}
+<body>
+  <div class="container mx-auto grid sm:grid-cols-11" style="max-width: none; padding: 0; height: 100%; overflow-x: hidden;">
+    <!-- Side Bar -->
+    <div class="rounded col-span-2">
+      {% block sidebar %}
+        {% include "snsApp/sidebar.html" %}
+        {% endblock %}
+    </div>
+    <!-- Friend Request List -->
+    <div class="rounded col-span-9">
+        <div class=" bg-white border border-gray-200 rounded-lg shadow sm:p-8"
+              style="max-width: 90%; height: 90%; margin-top: 3%;">
+          <div class="flex items-center justify-between mb-4">
+            <!-- List Title -->
+              <h5 class="text-xl font-bold leading-none dark:text-black">
+                Friend Requests
+              </h5>
+          </div>
+          <div class="flow-root">
+              <ul role="list" class="divide-y divide-gray-200 dark:divide-gray-700">
+                <!-- Iterate through all friend requests -->
+                {% if requests %}
+                <!-- For each request create a card -->
+                  {% for request in requests %}
+                  <li class="py-3 sm:py-4">
+                    <div class="flex items-center space-x-4">
+                      <!-- Requester's name -->
+                      <div class="flex-1 min-w-0">
+                          <p class="text-sm font-medium text-gray-900 truncate dark:text-white">
+                            <h3 id="request_name">{{ request.sender }}</h3>
+                          </p>
+                      </div>
+                      <!-- Buttons to Accept or Decline Friend Request -->
+                      <div class="inline-flex items-center text-base font-semibold text-gray-900 dark:text-white">
+                          <form id="request_form" action="/friend_request/" method="post" enctype="multipart/form-data">
+                            {% csrf_token %}
+                            <input type="hidden" name="receiver" value="{{ request.receiver }}">
+                            <input type="hidden" name="sender" value="{{ request.sender }}">
+                            <div  id="request_buttons">
+                              <button type="submit" value="accept" name="action"
+                                      id="accept_btn">
+                                Accept
+                              </button>
+                              <button id="decline_button" type="submit" 
+                                      value="decline" name="action"
+                                      id="decline_btn">
+                                Decline
+                              </button>
+                            </div>
+                          </form>
+                      </div>
+                    </div>
+                  </li>
+                  {% endfor %}
+                  <!-- If no request found, display this message -->
+                {% else %}
+                  <h3 id="no_request_header">No Friend Requests at the moment</h3>
+                {% endif %}
+              </ul>
+            </div>
+          </div>
+    </div>
+  </div>
+</body>

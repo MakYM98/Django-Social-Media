@@ -1,0 +1,49 @@
+{% extends "./register_base.html" %}
+{% block content %}
+  <div class="container-fluid" >
+    <div class="row">
+      <!-- Login page Cover Image -->
+        <div class="col-md-6">
+            <img src="../../static/media/login.jpg" id="reg_img"/>
+        </div>
+        <!-- Login Form -->
+        <div class="col-md-6">
+          <div id="register_div">
+            <div id="login_div_2">
+              <div id="login_area">
+                <form class="login_form" action="/login/" method="post">
+                  {% csrf_token %}
+                  <h2 class="loginTitle">Login</h2>
+                  <!-- If Error Show error message -->
+                  {% if error %}
+                    <p>Invalid Login Credentials.</p>
+                  {% endif %}
+                  <!-- User Name Input Box -->
+                  <input class="register_input" type="text" name="username" 
+                          placeholder="Username" size=50 />
+                  <br/>
+                  <!-- Password Input Box -->
+                  <input class="register_input" type="password" name="password" 
+                          placeholder="Password" sieze=50 />
+                  <br/>
+                  <!-- Login Button -->
+                  <div class="buttonArea">
+                    <button type="submit" class="hollow button" id="register-button">
+                      Login
+                    </button>
+                  </div>
+                </form>
+                <!-- If User don't have an account, redirect to register page -->
+                <div class="callout" id="option-message">
+                  <p>Don't have an account? 
+                    <a id="register-nav" href="/signup">Sign up</a>
+                  </p>
+                </div>
+              </div>
+              
+            </div>
+          </div>
+        </div>
+    </div>
+  </div>
+{% endblock %}

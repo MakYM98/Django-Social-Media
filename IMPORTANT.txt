@@ -1,0 +1,51 @@
+This Django Application makes use of Tailwind CSS as part of the requirements
+to use Advanced techniques not yet covered in the course.
+
+*** Please ensure that your Python version in the Virtual Environment is Python 3.10.10 and above ***
+
+I have tested on both MacOS and Linux (Ubuntu) and have confirmed that it works
+on both the OS. Below are the steps to install all the required packages and 
+redis-server
+
+Step 1: Install Redis-Server on your System.
+For Ubuntu:
+sudo apt-get update
+sudo install redis-server
+
+For Windows:
+Install WSL2
+Follow the instructions through this link provided.
+https://redis.io/docs/getting-started/installation/install-redis-on-windows/
+
+For MacOS:
+brew install redis
+
+Step 2: Install virutal environment package.
+pip install virtualenvwrapper
+
+Step 3: Make a new virtual environment.
+source /usr/local/bin/virtualenvwrapper.sh
+mkvirtualenv -p /usr/bin/python3 adv_web_env
+
+Step 4: Ensure that you have activated the virtual environment.
+workon adv_web_env
+
+Step 5: Install all necessary libraries.
+cd /path/to/project/folder
+pip install -r requirements.txt
+
+Step 6: Start the application and visit 127.0.0.1:8000 on web browser
+redis-server & python3 manage.py tailwind start & python3 manage.py runserver 127.0.0.1:8000
+
+** For Step 6 you can either run all three commands together or split them
+into 3 different terminals
+
+
+For running all the test cases, run the following command.
+python manage.py test
+
+
+You can test the search function by searching for "Harry"
+You can also login to a pre-created account with the following credentials.
+Username: Harry
+password: harry

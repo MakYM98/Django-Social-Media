@@ -1,0 +1,64 @@
+{% extends "snsApp/home_base.html" %}
+{% block content %}
+  {% if user.is_authenticated %}
+    <div id='edit_profile'>
+      <!-- Edit Profile Title -->
+      <h4 class="text-2xl font-bold leading-tight text-black-800 dark:text-black-100"
+          style="margin-top: 3%; text-align: center;">
+        Edit Profile
+      </h4>
+      <!-- User Icon with Display Image and Details -->
+      <div class="sidebar" id="edit_user">
+        <div class="sidebar-profile" id="sidebar-profile-img">
+          {% if user_profile.profileImage %}
+            <a href="/user_home"><img class="thumbnail" src="{{ img_url }}" alt="User profile image"></a>
+          {% else %}
+            <a href="/user_home"><img class="thumbnail" src="/static/media/blank.png" alt="Defalut preofile image"></a>
+          {% endif %}
+        </div>
+        <div class="sidebar-profile" id="sidebar-profile-user">
+          <p id='sidebar-profile-username'>{{ user.username }}</p>
+          <p id='sidebar-profile-name'>{{ user.first_name }} {{ user.last_name }}</p>
+        </div>
+      </div>
+      <!-- Edit Profile Form -->
+      <form action="/edit_profile/" method="post" enctype="multipart/form-data">
+        {% csrf_token %}
+        <div class="container-fluid" id="edit_form">
+          <!-- Create Inputs for User Model Details -->
+          {% for field in user_form %}
+          <div class="row">
+            <div class="col-3">
+              <label class="text-right middle">{{ field.label }}</label>
+            </div>
+            <div class="col-9">
+              {{ field }}
+            </div>
+          </div>
+          {% endfor %}
+          <!-- Create Inputs for UserAccount Details -->
+          {% for field in profile_form %}
+          <div class="row">
+            <div class="col-3">
+              <label class="text-right middle">{{ field.label }}</label>
+            </div>
+            <div class="col-9">
+              {{ field }}
+            </div>
+          </div>
+          {% endfor %}
+        </div>
+        <!-- Button to update with new information -->
+        <button type="submit" class="hollow button" id="update_button">
+          Update
+        </button>
+      </form>
+    </div>
+    <!-- In Case of bug, show this message. -->
+  {% else %}
+    <h5>Welcome to SNS</h5>
+  {% endif%}
+{% endblock %}
+{% block sidebar%}
+  {% include "snsApp/sidebar.html" %}
+{% endblock %}

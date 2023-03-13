@@ -1,0 +1,233 @@
+openapi: 3.0.2
+info:
+  title: ''
+  version: ''
+paths:
+  /:
+    get:
+      operationId: listHomeFeeds
+      description: ''
+      parameters: []
+      responses:
+        '200':
+          content:
+            text/html:
+              schema:
+                type: array
+                items: {}
+          description: ''
+      tags:
+      - ''
+  /profile/{username}/:
+    get:
+      operationId: retrieveOtherUsers
+      description: ''
+      parameters:
+      - name: username
+        in: path
+        required: true
+        description: ''
+        schema:
+          type: string
+      responses:
+        '200':
+          content:
+            text/html:
+              schema: {}
+          description: ''
+      tags:
+      - profile
+    post:
+      operationId: createOtherUsers
+      description: ''
+      parameters:
+      - name: username
+        in: path
+        required: true
+        description: ''
+        schema:
+          type: string
+      requestBody:
+        content:
+          application/json:
+            schema: {}
+          application/x-www-form-urlencoded:
+            schema: {}
+          multipart/form-data:
+            schema: {}
+      responses:
+        '201':
+          content:
+            text/html:
+              schema: {}
+          description: ''
+      tags:
+      - profile
+  /api/user/{username}/:
+    get:
+      operationId: retrieveUser
+      description: ''
+      parameters:
+      - name: username
+        in: path
+        required: true
+        description: ''
+        schema:
+          type: string
+      responses:
+        '200':
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/User'
+          description: ''
+      tags:
+      - api
+  /api/posts/{id}/:
+    get:
+      operationId: retrievePost
+      description: ''
+      parameters:
+      - name: id
+        in: path
+        required: true
+        description: ''
+        schema:
+          type: string
+      responses:
+        '200':
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Post'
+          description: ''
+      tags:
+      - api
+  /api/post/:
+    get:
+      operationId: listPosts
+      description: ''
+      parameters: []
+      responses:
+        '200':
+          content:
+            application/json:
+              schema:
+                type: array
+                items:
+                  $ref: '#/components/schemas/Post'
+          description: ''
+      tags:
+      - api
+    post:
+      operationId: createPost
+      description: ''
+      parameters: []
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/Post'
+          application/x-www-form-urlencoded:
+            schema:
+              $ref: '#/components/schemas/Post'
+          multipart/form-data:
+            schema:
+              $ref: '#/components/schemas/Post'
+      responses:
+        '201':
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Post'
+          description: ''
+      tags:
+      - api
+components:
+  schemas:
+    User:
+      type: object
+      properties:
+        username:
+          type: string
+          description: Required. 150 characters or fewer. Letters, digits and @/./+/-/_
+            only.
+          pattern: ^[\w.@+-]+\z
+          maxLength: 150
+        first_name:
+          type: string
+          maxLength: 150
+        last_name:
+          type: string
+          maxLength: 150
+        profile:
+          type: object
+          properties:
+            profile_image:
+              type: string
+              format: binary
+              nullable: true
+            dob:
+              type: string
+              format: date
+              nullable: true
+            bio:
+              type: string
+              nullable: true
+              maxLength: 400
+          readOnly: true
+        posts:
+          type: array
+          items:
+            type: object
+            properties:
+              post_id:
+                type: integer
+                readOnly: true
+              user:
+                type: integer
+              post_date:
+                type: string
+                format: date
+                nullable: true
+              caption:
+                type: string
+                maxLength: 500
+              likes:
+                type: integer
+                nullable: true
+              image:
+                type: string
+                format: binary
+            required:
+            - user
+            - caption
+            - image
+          readOnly: true
+      required:
+      - username
+    Post:
+      type: object
+      properties:
+        post_id:
+          type: integer
+          readOnly: true
+        user:
+          type: integer
+        post_date:
+          type: string
+          format: date
+          nullable: true
+        caption:
+          type: string
+          maxLength: 500
+        likes:
+          type: integer
+          nullable: true
+        image:
+          type: string
+          format: binary
+      required:
+      - user
+      - caption
+      - image

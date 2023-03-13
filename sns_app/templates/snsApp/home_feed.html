@@ -1,0 +1,47 @@
+<div class="home-feed">
+  <!-- Home Feed Title -->
+  <h4 class="text-2xl font-bold leading-tight text-black-800 dark:text-black-100"
+    style="margin-top: 3%; text-align: center;">
+    Home Feed
+  </h4>
+  <!-- Iterate through user and user's friends posts -->
+  <!-- Display posts in rows of 3 -->
+  <div class="container-fluid">
+    {% for row in posts %}
+      <div class="row">
+        <!-- For each Post create a card -->
+        {% for post in row %}
+        <div class="col-4" style="display: flex; justify-content: center; align-items: center;">
+          <div>
+            <div class="card" id="feed_card" style='margin-top: 5%'>
+              <!-- Check if status has an image attached -->
+              {% if post.image %}
+              <img class="post_img" src="{{ post.image.url }}" >
+              {% endif %}
+              <div class="card-section">
+                <!-- Check if post is posted by logged in user -->
+                {% if post.user != user %}
+                <p>
+                  <a class="post_user" href="profile/{{ post.user }}">
+                    {{ post.user }}
+                  </a> {{ post.caption }} 
+                </p>
+                {% else %}
+                <p> <span class="post_user">
+                  {{ post.user }}</span> {{ post.caption }}
+                </p>
+                {% endif %}
+                <!-- Post Date -->
+                <p class="post_date">Posted on {{ post.post_date }}</p>
+                <!-- Post Likes -->
+                <p><i class="fi-heart"></i>XX Likes</p>
+              </div>
+            </div>
+          </div>
+          
+        </div>
+        {% endfor %}
+      </div>
+    {% endfor %}  
+  </div>
+</div>  

@@ -1,0 +1,496 @@
+/* Main component stylesheet */
+body {
+  background-color: white;
+  height: 100vh;
+}
+
+.cell {
+  height: 100%;
+}
+
+/* Nav Stylesheet */
+
+#side_container{
+  height:100%;
+  padding:0;
+}
+
+#side_row{
+  height:100%;
+}
+
+#side_nav{
+  padding-right: 0;
+}
+
+#side_options{
+  margin-top: 8%;
+}
+
+#logout-button{
+  margin-top: 100%;;
+}
+
+#nav_option{
+  margin-top: 5%;
+}
+
+.nav_ref{
+  color: black;
+  text-decoration: none;
+}
+
+/* Home Feed Stylesheet */
+#feed_div{
+  /* padding-left: 5%; */
+  /* padding-right: 5%; */
+}
+
+#feedTitle{
+  margin-top: 1%;
+  text-align: center;
+}
+
+.navATag{
+  width: 100%;
+  text-align: left;
+}
+
+/* Profile Stylesheet */
+#profile_div{
+  padding-top:2%;
+  padding-right: 20%;
+}
+
+.user-home-profile {
+  display: inline-block;
+  margin-top: 10px;
+  vertical-align: top;
+}
+
+#user-home-profile-thumbnail {
+  width: 150px;
+  height: 150px;
+  border-radius: 80px;
+}
+
+#user-home-profile-info {
+  width: 300px;
+  margin-left: 1%;
+}
+
+#edit-profile-button {
+  height: 25px;
+  margin-top: 12px;
+  margin-left: 20px;
+  text-align: center;
+  padding: 6px;
+  border-radius: 5px;
+}
+
+#create-post-button {
+  width: 160px;
+  height: 30px;
+  padding: 8px;
+  border-radius: 10px;
+  margin-left:1%;
+}
+
+#new-post-button {
+  width: 100px;
+  height: 30px;
+  padding: 8px;
+  border-radius: 10px;
+  display: inline-block;
+  vertical-align: middle;
+}
+
+#overlay {
+  visibility: hidden;
+  position: absolute;
+  left: 0px;
+  top: 0px;
+  width: 100%;
+  height: 100%;
+  text-align: center;
+  z-index: 1000;
+}
+
+#overlay div {
+  width: 400px;
+  margin: 100px auto;
+  border: 1px solid gray;
+  padding: 15px;
+  text-align: center;
+}
+
+#profile_buttons{
+  display:flex;
+  margin-top:3%;
+}
+
+/* Edit Profile Stylesheet */
+#edit_profile{
+  width: 100%;
+}
+
+.edit_box {
+  width: 150px;
+  height: 30px;
+  display: inline-block;
+}
+
+#edit_form{
+  margin-top: 5%;
+}
+
+#update_button {
+  width: 150px;
+  margin-top: 20px;
+}
+
+/* Post Card */
+.post_img{
+  width: 400px;
+  height:250px;
+}
+
+.post_date{
+  font-size: 11px;
+}
+
+.post_user{
+  color: black;
+  text-decoration: none;
+  font-weight: bold;
+}
+
+#feed_card{
+  width: 350px;
+  height: 400px;
+  margin-right: 1%;
+  margin-left: 1%;
+}
+
+.cardCol{
+  display:flex;
+  justify-self: center;
+  align-items: center;
+}
+
+/* Register base stylesheet */
+.register_input {
+  width: 100%;
+  height: 100%;
+}
+
+.register_input.date-birth {
+  width: 100px;
+  display: inline-block;
+}
+
+#register-button {
+  width: 200px;
+  height: 30px;
+  text-align: center;
+  padding: 0px;
+  color: #0093f5;
+}
+
+#register_form{
+  text-align: center;
+}
+
+.callout {
+  width: 300px;
+  text-align: center;
+  border-radius: 1px;
+}
+
+#login-form {
+  width: 100%;
+  height:100%;
+  background-color: white;
+}
+
+#option-message {
+  text-align: center;
+  margin: auto;
+  margin-top: 10px;
+  width: 90%;
+}
+
+#register-nav {
+  color: #0093f5;
+}
+
+#register_div{
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  width: 100%;
+  height:100%;
+}
+
+#login_div_2{
+  height: 100%;
+  width: 100%;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+#reg_img{
+  width: 100%;
+}
+
+.buttonArea{
+  width: 100%;
+  display:flex;
+  justify-content: center;
+}
+
+.loginTitle{
+  text-align: center;
+  margin-bottom: 5%;
+}
+
+#reg_success{
+  display:flex;
+  justify-content: center;
+  align-items: center;
+}
+
+.welcome_text{
+  text-align: center;
+}
+
+/* Search result (search_user.htnl) stylesheet */
+.search-result {
+  display: inline-block;
+}
+
+#search-result-img {
+  width: 80px;
+}
+
+#search-result-info {
+  width: 200px;
+}
+
+/* Sidebar stylesheet */
+.sidebar {
+  height: 60px;
+  text-align: left;
+  margin-top: 15%;
+}
+
+#edit_user{
+  margin-top: 5%;
+}
+
+#sidebarHeader{
+  width: 80%;
+}
+
+.sidebar-profile {
+  display: inline-block;
+  margin: auto;
+}
+
+#sidebar-profile-img {
+  width: 60px;
+  height: 60px;
+}
+
+#sidebar-profile-user {
+  height: 50px;
+  margin-left: 5px;
+}
+
+#sidebar-profile-username {
+  margin: 0;
+}
+
+#sidebar-profile-name {
+  color: gray;
+}
+
+.thumbnail {
+  border-radius: 40px;
+  width: 60px;
+  height: 60px;
+  border: 1px solid;
+}
+
+.sidebar-chat {
+  height: 300px;
+  margin-top: 30px;
+}
+
+#search_title{
+  margin-top: 3%;
+  margin-bottom: 3%;
+  padding-left: 3%;
+}
+
+#search_div{
+  padding-left: 3%;
+}
+
+/* Nav bar stylesheet */
+.top-bar {
+  background: #FFFFFF;
+  border-bottom: 1px solid gray;
+}
+
+.top-bar-left {
+  margin-left: 20%;
+}
+
+.top-bar-right {
+  margin-right: 20%;
+}
+
+.search-bar {
+  padding-left: 5px;
+}
+
+#search-button {
+  background: #FFFFFF;
+}
+
+/* icon stylesheet */
+.fi-heart {
+  color: red;
+}
+
+.fi-home {
+  font-size: 30px;
+  color: black;
+}
+
+.fi-mail {
+  font-size: 30px;
+  color: black;
+}
+
+.fi-magnifying-glass {
+  font-size: 15px;
+}
+
+/* Footer stylesheet */
+a {
+  color: #8f8f8f;
+}
+
+.register-footer {
+  text-align: center;
+  margin-top: 60px;
+}
+
+.lower-footer {
+  margin-top: 10px;
+}
+
+.footer-content {
+  display: inline-block;
+  margin-left: 20px;
+}
+
+/* Requests Stylesheet */
+#request_div{
+  display:flex;
+}
+
+#request_form{
+  width: 100%;
+}
+
+#request_headers{
+  padding-left: 5%;
+  margin-bottom: 3%;
+  text-decoration: underline;
+}
+
+#no_request_header{
+  padding-left: 1%;
+}
+
+#request_name{
+  font-size: 35px;
+  padding-left: 1%;
+}
+
+#request_buttons{
+  display: flex;
+  justify-content: start;
+  align-items: center;
+  width: 100%;
+  padding-left: 5%;
+  padding-right:5%;
+  color: black;
+}
+
+#decline_button{
+  margin-left: 5%;
+}
+
+/* New Post Stylesheet */
+#new_post_div{
+  padding-top:2%;
+  padding-right: 20%;
+  padding-left:5%;
+}
+
+#new_post_form{
+  padding-top:2%;
+}
+
+#id_text{
+  width: 80%;
+}
+
+/* Chat Stylesheet */
+#message_area{
+  margin-bottom: 5%;
+  height:500px;
+  max-height: 500px;
+  overflow-y: scroll;
+  border: 1px solid lightgrey;
+  padding:3%;
+  width: 90%;
+  margin-left: 5%;
+}
+
+#chat_input{
+  width: 90%;
+  margin-left: 5%;
+}
+
+#chat_send{
+  margin-left: 90%;
+}
+
+.friendSent{
+  background-color: lightgray;
+  padding: 1.5%;
+  border-radius: 100px;
+}
+
+.friendBubbleRow{
+  display: flex;
+  margin-bottom: 1%;
+}
+
+.userSent{
+  background-color: #1982FC;
+  padding: 1.5%;
+  border-radius: 100px;
+}
+
+.userBubbleRow{
+  display: flex;
+  justify-content: end;
+  margin-bottom: 1%;
+}

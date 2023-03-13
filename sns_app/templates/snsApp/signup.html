@@ -1,0 +1,53 @@
+{% extends "./register_base.html" %}
+{% block content %}
+<div class="container-fluid">
+
+  <div class="row">
+    <!-- Registration Cover Image -->
+    <div class="col-md-6">
+        <img src="../../static/media/login.jpg" id="reg_img"/>
+      </div>
+    <!-- Register Form -->
+    <div class="col-md-6" id="reg_success">
+      <!-- Section to show IF User has registered -->
+      {% if registered %}
+        <div id="welcome_messages">
+          <h1 class="welcome_text">Welcome to Social Media Appplication</h1>
+          <h4 class="welcome_text">Click <a href="/login">here</a> to login now!</h4>
+        </div>
+      {% else %}
+      <!-- Register Form -->
+      <div id="register_div">
+        <div id="login_div_2">
+          <div id="login_area">
+            <h2 class="loginTitle">Register</h2>
+            <form id="register_form" action="/signup/" method="post" 
+                  enctype="multipart/form-data">
+              <!-- Automatically generate form -->
+              {% csrf_token %}
+              {{ user_form.as_p}}
+              {{ profile_form.as_p}}
+              <button type="submit" class="hollow button" id="register-button">
+                Sign Up
+              </button>
+            </form>
+             <!-- If User have account, redirect to login page. -->
+              <div class="callout" id="option-message">
+                <p>Have an account? 
+                  <a id="register-nav" href="/login"> 
+                    Login 
+                  </a>
+                </p>
+              </div>
+            </div>
+            </div>
+      {% endif %}
+            
+          
+        </div>
+      </div>
+  </div>
+</div>
+
+          
+{% endblock %}

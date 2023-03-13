@@ -1,0 +1,109 @@
+{% if user.is_authenticated %}
+<div id="Main"  class="xl:rounded-r transform  xl:translate-x-0  ease-in-out transition duration-500 flex justify-start items-start h-full  w-full sm:w-64 bg-gray-900 flex-col">
+  <!-- Side Bar Header -->
+  <div class="hidden xl:flex justify-start p-6 items-center space-x-3">
+    <p class="text-2xl leading-6 text-white">
+      CM3035 SNS APP
+    </p>                
+  </div>
+  <!-- Side Bar Search Bar -->
+  <form class="search-bar" method="POST" action="{% url 'search-user'%}">
+    {% csrf_token %}
+    <ul class="menu">
+      <!-- Search Component -->
+      <li><input type="search" placeholder="search" name="q"></li>
+      <!-- Button to start search -->
+      <li>
+        <button type="submit" class="hollow button" id="search-button">
+          <i class="fi-magnifying-glass"></i>
+        </button>
+      </li>
+    </ul>
+  </form>
+  <!-- Navigation Buttons to other pages. -->
+  <div class="mt-6 flex flex-col justify-start items-center  pl-4 w-full border-gray-600 border-b space-y-3 pb-5 ">
+      <!-- Home Page Navigation -->
+      <a href="/" class="navATag">
+        <button class="flex jusitfy-start items-center space-x-6 w-full  focus:outline-none  focus:text-indigo-400  text-white rounded ">
+          <i class="fi-home nav-icons" style="color:white; font-size: 20px;"></i>
+          <p class="text-base leading-4 ">Home</p>                    
+        </button>
+      </a>
+      <!-- User Profile Navigation -->
+      <a href="/user_home" class="navATag">
+        <button class="flex jusitfy-start items-center w-full  space-x-6 focus:outline-none text-white focus:text-indigo-400   rounded ">
+          <i class="fi-torso" style="color:white; font-size: 20px;"></i>
+              <p class="text-base leading-4 ">Profile</p>                    
+        </button>
+      </a>
+      <!-- Chat List Navigation -->
+      <a href="/chat_list" class="navATag">
+        <button class="flex jusitfy-start items-center w-full space-x-6 
+                      focus:outline-none text-white focus:text-indigo-400 
+                      rounded ">
+          <i class="fi-comment"></i> 
+          <p class="text-base leading-4 ">Chats</p>
+        </button>
+      </a>
+      <!-- Friend Request Navigation -->
+      <a href="/friend_request" class="navATag">
+        <button class="flex jusitfy-start items-center w-full  space-x-6 focus:outline-none text-white focus:text-indigo-400   rounded ">
+          <i class="fi-torsos-all"></i> 
+              <p class="text-base leading-4 ">Requests</p>                    
+        </button>
+      </a>
+      <!-- New Post Navigation -->
+      <a href="/new_post" class="navATag">
+        <button class="flex jusitfy-start items-center w-full  space-x-6 focus:outline-none text-white focus:text-indigo-400   rounded ">
+          <i class="fi-photo"></i> 
+              <p class="text-base leading-4 ">Create Post</p>                    
+        </button>
+      </a>
+      <!-- Swagger Docs Navigation -->
+      <a href="/swaggerdocs/" class="navATag">
+        <button class="flex jusitfy-start items-center w-full  space-x-6 focus:outline-none text-white focus:text-indigo-400   rounded ">
+          <i class="fi-database"></i>
+          <p class="text-base leading-4 ">API Swagger</p>           
+        </button>
+      </a>
+      <!-- Log Out Function -->
+      <a href="/logout" class="navATag">
+        <button class="flex jusitfy-start items-center w-full  space-x-6 focus:outline-none text-white focus:text-indigo-400   rounded ">
+          <i class="fi-x-circle"></i>
+          <p class="text-base leading-4 ">Logout</p>           
+        </button>
+      </a>
+  </div>
+  <!-- User Profile Image and Name -->
+  <div class="flex justify-between items-center w-full"
+          style="height:100%; display: flex; justify-content: start; 
+                  align-items: end;">
+    <div class="flex justify-center items-center  space-x-2"
+                style="margin-left: 5%;">
+      <!-- Profile Image -->
+      <div>
+        {% if user_profile.profile_image %}
+        <img class="rounded-full" src="{{ user_profile.profile_image.url }}" alt="avatar"
+            style="width: 50px; height: 50px;"/>
+        {% else %}
+        <a href="/user_home"><img class="thumbnail" src="/static/media/blank.png" alt="Default profile image"></a>
+        {% endif %}
+      </div>
+      <!-- User's Username and Name -->
+      <div class="flex justify-start flex-col items-start">
+          <p class="cursor-pointer text-sm leading-5 text-white">
+            {{ user.username }}
+          </p>
+          <p class="cursor-pointer text-xs leading-3 text-gray-300">
+            {{ user.first_name }} {{ user.last_name }}
+          </p>
+      </div>
+    </div>
+  </div>
+  </div>
+{% endif %}
+
+
+
+
+

@@ -1,0 +1,90 @@
+{% include "./header.html" %}
+<body>
+  <div class="container mx-auto grid sm:grid-cols-11" style="max-width: none; padding: 0; height: 100%; overflow-x: hidden;">
+    <!-- Side Bar -->
+    <div class="rounded col-span-2">
+      {% block sidebar %}
+        {% include "snsApp/sidebar.html" %}
+        {% endblock %}
+    </div>
+    <!-- User Profile -->
+    <div class="rounded col-span-9">
+      <h4 class="text-2xl font-bold leading-tight text-black-800 dark:text-black-100"
+          style="margin-top: 3%; text-align: center;">
+          Profile
+        </h4>
+      <!-- User Profile Image -->
+      <div class="user-home-profile" id="user-home-profile-img">
+        {% if img_url %}
+          <img class="thumbnail" id="user-home-profile-thumbnail" src="{{ img_url }}" alt="user profile image">
+        {% else %}
+          <img class="thumbnail" id="user-home-profile-thumbnail" src="/static/media/blank.png" alt="user profile image">
+        {% endif %}
+      </div>
+      <!-- User Details -->
+      <div class="user-home-profile" id="user-home-profile-info">
+        <h4 >{{ subuser }}</h4>
+        <p> {{ subuser.first_name}} {{ subuser.last_name}}</p>
+        <p>{{ user_profile.bio }}</p>
+        <a href="/profile/{{ subuser }}/friends/">
+          {{ friend_count }}&nbsp;Friends
+        </a>
+        <!-- If status requested, show Requested Button -->
+        {% if following == "Requested" %}
+          <form class="follow" action="" method="POST">
+            {% csrf_token %}
+            <input type="hidden" name="user" value="{{ subuser }}">
+            <input type="hidden" name="friend" value="{{ user }}">
+            <button type="submit" name="button" class="hollow button secondary">Requested <i class="fi-check"></i></button>
+          </form>
+        <!-- Else if status is following, show Friend Button -->
+        {% elif following %}
+          <form class="follow" action="/unfriend/" method="POST">
+            {% csrf_token %}
+            <input type="hidden" name="user" value="{{ subuser }}">
+            <input type="hidden" name="friend" value="{{ user }}">
+            <button type="submit" name="button" class="hollow button success">Friend <i class="fi-check"></i></button>
+          </form>
+        <!-- If neither of the two above, show Add Friend Button -->
+        {% else %}
+          <form class="follow" action="" method="POST">
+            {% csrf_token %}
+            <input type="hidden" name="user" value="{{ subuser }}">
+            <input type="hidden" name="friend" value="{{ user }}">
+            <button type="submit" name="button" class="hollow button primary">
+              Add Friend <i class="fi-plus"></i>
+            </button>
+          </form>
+        {% endif %}
+      </div>
+      <!-- All User's Post -->
+      <div class="container-fluid">
+        <!-- Iterate through all posts -->
+        {% for row in posts %}
+        <div class="row">
+        {% for post in row %}
+        <!-- Create a Card for each post -->
+            <div class="col-4" style="display: flex; justify-content: center; align-items: center;">
+              <div>
+                <div class="card" id="feed_card">
+                  {% if post.image %}
+                  <img class="post_img" src="{{ post.image }}" >
+                  {% endif %}
+                  <div class="card-section">
+                    <p>{{ post.caption }}</p>
+                    <p class="post_date">Posted on {{ post.post_date }}</p>
+                    <p><i class="fi-heart"></i> XX likes</p>
+                  </div>
+                </div>
+              </div>
+              
+            </div>  
+        {% endfor %} 
+        </div>
+        {% endfor %} 
+      </div>
+    </div>
+  </div>
+</body>
+
+

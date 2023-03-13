@@ -1,0 +1,67 @@
+{% include "./header.html" %}
+<body>
+  <div class="container mx-auto grid sm:grid-cols-11" style="max-width: none; padding: 0; height: 100%; overflow-x: hidden;">
+      <!-- Side Bar Navigation -->
+    <div class="rounded col-span-2">
+      {% block sidebar %}
+        {% include "snsApp/sidebar.html" %}
+        {% endblock %}
+    </div>
+    <!-- User profile Section -->
+    <div class="rounded col-span-9">
+      <h4 class="text-2xl font-bold leading-tight text-black-800 dark:text-black-100"
+          style="margin-top: 3%; text-align: center;">
+          Profile
+        </h4>
+      <!-- Profile Image -->
+      <div class="user-home-profile" id="user-home-profile-img">
+        {% if img_url %}
+          <img class="thumbnail" id="user-home-profile-thumbnail" src="{{ img_url }}" alt="user profile image">
+        {% else %}
+          <img class="thumbnail" id="user-home-profile-thumbnail" src="/static/media/blank.png" alt="user profile image">
+        {% endif %}
+      </div>
+      <!-- User Details -->
+      <div class="user-home-profile" id="user-home-profile-info">
+        <h4 >{{ user }} </h4>
+        <p> {{ user.first_name}} {{ user.last_name}}</p>
+        <p>{{ user_profile.bio }}</p>
+        <a href="/friend_list/" style="color:blue">
+          {{ follower_count }}&nbsp;Friends
+        </a>
+        <!-- Button to Edit Profile -->
+        <div id="profile_buttons">
+          <a href="/edit_profile" class='button' id="create-post-button">
+            Edit Profile
+          </a>
+        </div>
+
+      </div>
+      <!-- All User's Posts -->
+      <div class="container-fluid">
+        {% for row in posts %}
+          <div class="row">
+            <!-- Iterate through all posts retrieved -->
+            {% for post in row %}
+                <!-- Create a new card for each post -->
+                <div class="col-4" style="display: flex; justify-content: center; align-items: center;">
+                  <div>
+                    <div class="card" id="feed_card">
+                      {% if post.image %}
+                      <img class="post_img" src="{{ post.image.url }}" >
+                      {% endif %}
+                      <div class="card-section">
+                        <p>{{ post.caption }}</p>
+                        <p class="post_date">Posted on {{ post.post_date }}</p>
+                        <p><i class="fi-heart"></i> XX likes</p>
+                      </div>
+                    </div>
+                  </div>
+                </div>  
+            {% endfor %} 
+          </div>
+        {% endfor %}  
+      </div>
+    </div>
+  </div>
+</body>

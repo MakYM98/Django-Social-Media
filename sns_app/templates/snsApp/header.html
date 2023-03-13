@@ -1,0 +1,26 @@
+{% load static tailwind_tags %}
+<!DOCTYPE html>
+<html lang="en" dir="ltr">
+<head>
+  <meta charset="utf-8">
+  <meta name="description" content="CM3035 SNS App">
+  <meta name="keywords" content="Django, Advanced Web Dev, Tailwind, Bootstrap">
+  <meta name="author" content="Yeong Meng">
+  <!-- Foundation CSS -->
+  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/foundation-sites@6.6.3/dist/css/foundation.min.css" integrity="sha256-ogmFxjqiTMnZhxCqVmcqTvjfe1Y/ec4WaRj/aQPvn+I=" crossorigin="anonymous">
+  <!-- Foundation icons -->
+  <link rel ="stylesheet" href ="https://cdnjs.cloudflare.com/ajax/libs/foundicons/3.0.0/foundation-icons.css">
+  <!-- Foundation  JavaScript -->
+  <script src="https://cdn.jsdelivr.net/npm/foundation-sites@6.6.3/dist/js/foundation.min.js" integrity="sha256-pRF3zifJRA9jXGv++b06qwtSqX1byFQOLjqa2PTEb2o=" crossorigin="anonymous"></script>
+  <!-- Bootstrap -->
+  <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha1/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-GLhlTQ8iRABdZLl6O3oVMWSktQOp6b7In1Zl3/Jr59b6EGGoI1aFkw7cmDA6j6gD" crossorigin="anonymous">
+  {% load static %}
+  <!-- General CSS Style Sheet -->
+  <link rel="stylesheet" type="text/css" href="{% static 'css/stylesheet.css' %}" />
+  <!-- General JavaScript  -->
+  <script type="text/javascript" src="{% static 'js/index.js' %}"></script>
+  <!-- Change Application Icon -->
+  <link rel="icon" href="{% static 'img/favicon.ico' %}">
+  <!-- Include Tailwind CSS -->
+  {% tailwind_css %}
+</head>

@@ -1,0 +1,72 @@
+{% include "./header.html" %}
+<body>
+  <div class="container mx-auto grid sm:grid-cols-11" style="max-width: none; padding: 0; height: 100%; overflow-x: hidden;">
+    <!-- Side Bar -->
+    <div class="rounded col-span-2">
+      {% block sidebar %}
+        {% include "snsApp/sidebar.html" %}
+        {% endblock %}
+    </div>
+    <!-- Display Friend List -->
+    <div class="rounded col-span-9">      
+      <div class=" bg-white border border-gray-200 rounded-lg shadow sm:p-8"
+          style="max-width: 90%; height: 90%; margin-top: 3%;">
+          <!-- Friends Count as Header -->
+        <div class="flex items-center justify-between mb-4">
+            <h5 class="text-xl font-bold leading-none dark:text-black">
+              {{ friend_count }} Friends
+            </h5>
+        </div>
+        <div class="flow-root">
+          <!-- Friend List -->
+              <ul role="list" class="divide-y divide-gray-200 dark:divide-gray-700">
+                {% for user in friend_list %}
+                  <li class="py-3 sm:py-4">
+                      <div class="flex items-center space-x-4">
+                        <!-- For each friend create a card -->
+                          <div class="flex-shrink-0">
+                            {% if user.profile_image %}
+                              {% if user.user == loggedUser %}
+                              <a href="/user_home">
+                              {% else %}
+                              <a href="/profile/{{ user.user }}/">
+                              {% endif %}
+                              <!-- Check if user has profile image -->
+                                <img class="w-16 h-16 rounded-full"
+                                      src="/media/{{ user.profile_image }}/" 
+                                      alt="User profile image">
+                              </a>
+                            {% else %}
+                            <!-- If logged in User in friend list -->
+                            <!-- Redirect to own profile page -->
+                              {% if user.user == loggedUser %}
+                              <a href="/user_home">
+                              {% else %}
+                              <a href="/profile/{{ user.user }}/">
+                              {% endif %}
+                                <img class="w-16 h-16 rounded-full" src="/static/media/blank.png" 
+                                  alt="Default profile image">
+                              </a>
+                            {% endif %}
+                          </div>
+                          <!-- User's Name -->
+                          <div class="flex-1 min-w-0">
+                              <p class="dark:text-black">
+                                {% if user.user == loggedUser %}
+                                <a href="/user_home">
+                                {% else %}
+                                <a href="/profile/{{ user.user }}/">
+                                {% endif %}
+                                  {{ user.user }}
+                                </a>
+                              </p>
+                          </div>
+                      </div>
+                  </li>
+                {% endfor %}
+              </ul>
+        </div>
+      </div>
+    </div>
+  </div>
+</body>
